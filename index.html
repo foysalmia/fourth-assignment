@@ -65,7 +65,7 @@
                 </div>
                 <row class="plus-minus-btn">
                     <input id="first-ticket-count" class="inp-style inp-width" type="number" value="0">
-                    <button onclick="handleProductChange('first',true)" type="button" class="btn btn-outline-success">+<button>   
+                    <button onclick="handleProductChange('first',true)" type="button" class="btn btn-outline-success">+<button>     
                     <button onclick="handleProductChange('first',false)" type="button" class="btn btn-outline-secondary">-</button>
                 </row>
             </div>
@@ -108,7 +108,7 @@
                     </div>
                 </div>
             </div>
-            <button class="btn-style">Book Now</button>
+            <button onclick="booking()" class="btn-style">Book Now</button>
         </div>
     </main>
     <!--Javascript code-->
@@ -148,6 +148,10 @@
             const productInput = document.getElementById(product + '-ticket-count');
             const productCount = parseInt(productInput.value);
             return productCount;
+        }
+        function booking(){
+            alert('You have to pay now.');
+
         }
         
     </script>
