@@ -11,7 +11,8 @@
         rel="stylesheet">
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
 
 <body>
@@ -32,7 +33,9 @@
 
         <div class="booking-content">
             <h1>Cruise Queen</h1>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book./p>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                scrambled it to make a type specimen book./p>
         </div>
 
 
@@ -49,7 +52,7 @@
             <div class="inputs">
                 <div class="input-group">
                     <label" for="">Departure</label>
-                    <input class="inp-style" type="date" name="">
+                        <input class="inp-style" type="date" name="">
                 </div>
                 <div class="input-group">
                     <label for="">Return</label>
@@ -61,18 +64,20 @@
                     <label for="">First Class ($150)</label>
                 </div>
                 <row class="plus-minus-btn">
-                    <input class="inp-style inp-width" type="number" name="">
-                    <button type="button" class="btn btn-outline-success">+</button> <button type="button" class="btn btn-outline-secondary">-</button>
+                    <input id="first-ticket-count" class="inp-style inp-width" type="number" value="0">
+                    <button onclick="handleProductChange('first',true)" type="button" class="btn btn-outline-success">+<button>   
+                    <button onclick="handleProductChange('first',false)" type="button" class="btn btn-outline-secondary">-</button>
                 </row>
             </div>
-            
+
             <div class="input-group f-class">
                 <div>
                     <label for="">Economy ($100)</label>
                 </div>
                 <row class="plus-minus-btn">
-                    <input class="inp-style inp-width" type="number" name="">
-                    <button type="button" class="btn btn-outline-success">+</button> <button type="button" class="btn btn-outline-secondary">-</button>
+                    <input id="economy-ticket-count" class="inp-style inp-width" type="number" value="0">
+                    <button onclick="handleProductChange('economy',true)" type="button" class="btn btn-outline-success">+</button>
+                    <button onclick="handleProductChange('economy',false)" type="button" class="btn btn-outline-secondary">-</button>
                 </row>
             </div>
             <div class="calculations">
@@ -81,7 +86,7 @@
                         <p>Subtotal</p>
                     </div>
                     <div class="right">
-                        <p>$500</p>
+                        <p id="subtotal-price">$000</p>
                     </div>
                 </div>
 
@@ -90,7 +95,7 @@
                         <p>Charge 10% VAT</p>
                     </div>
                     <div class="right">
-                        <p>$50</p>
+                        <p id="tax-amount">$00</p>
                     </div>
                 </div>
                 <hr>
@@ -99,7 +104,7 @@
                         <h4>Total</h4>
                     </div>
                     <div class="right">
-                        <p>$550</p>
+                        <p id="grand-total">$000</p>
                     </div>
                 </div>
             </div>
@@ -108,7 +113,43 @@
     </main>
     <!--Javascript code-->
     <script>
+        function handleProductChange(product,isIncrease) {
+            const economyInput = document.getElementById(product + '-ticket-count');
+            const economyCount = parseInt(economyInput.value);
+            let economyNewCount = economyCount;
+            if (isIncrease == true) {
+                economyNewCount = economyCount + 1;
+            }
+            if (isIncrease == false && economyCount > 0) {
+                economyNewCount = economyCount - 1;
 
+            }
+            economyInput.value = economyNewCount;
+            calculateTotal();
+        }
+        function calculateTotal(){
+            
+            const phoneCount = getInputValue('economy')
+
+            const caseCount = getInputValue('first');
+
+            const totalPrice = phoneCount * 100 + caseCount * 150;
+            document.getElementById('subtotal-price').innerText ='$' + totalPrice;
+            
+            const tax = totalPrice * 0.1;
+            document.getElementById('tax-amount').innerText = '$' + tax ;
+
+            const haveToPay = totalPrice + tax;
+            document.getElementById('grand-total').innerText = '$' + haveToPay;
+
+
+        }
+        function getInputValue(product){
+            const productInput = document.getElementById(product + '-ticket-count');
+            const productCount = parseInt(productInput.value);
+            return productCount;
+        }
+        
     </script>
 
     <!--Thank You-->
